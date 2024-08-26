@@ -8,7 +8,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delievery_app/Admin/AdminDashboard.dart';
 import 'package:food_delievery_app/View/Auth/Loginpage.dart';
-import 'package:food_delievery_app/View/User/Home.dart';
+import 'package:food_delievery_app/Widgets/BottomNavBar.dart';
 import 'package:food_delievery_app/Widgets/Message.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -111,7 +111,7 @@ class AuthController extends GetxController {
           var data = documentSnapshot.data() as Map;
           print("User Data : ${data["type"]}");
           setpreference(data);
-          Get.offAll(HomePage());
+          Get.offAll(Navbar());
         } else {
           FirebaseFirestore.instance
               .collection("admin")

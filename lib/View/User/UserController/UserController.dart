@@ -5,10 +5,16 @@ import 'package:get/get.dart';
 
 class UserController extends GetxController {
   bool isloading = false;
+  bool dishloading = false;
   var showlist = [];
   var dishlist = [];
   setloading(value) {
     isloading = value;
+    update();
+  }
+
+  setdishloading(value){
+    dishloading = value;
     update();
   }
 
@@ -38,6 +44,7 @@ class UserController extends GetxController {
   }
 
   getdishes(index) async {
+    setdishloading(true);
     for (var i = 0; i < showlist.length; i++) {
       showlist[i]["selected"] = false;
     }
@@ -66,5 +73,7 @@ class UserController extends GetxController {
         update();
       });
     }
+        setdishloading(false);
+        update();
   }
 }

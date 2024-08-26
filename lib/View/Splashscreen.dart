@@ -5,6 +5,7 @@ import 'package:food_delievery_app/Admin/AdminDashboard.dart';
 import 'package:food_delievery_app/Constants/AppColor.dart';
 import 'package:food_delievery_app/View/Auth/Loginpage.dart';
 import 'package:food_delievery_app/View/User/Home.dart';
+import 'package:food_delievery_app/Widgets/BottomNavBar.dart';
 import 'package:food_delievery_app/Widgets/MyText.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -33,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
       if (checkuser == "admin") {
         Get.offAll(AdminDashBoard());
       } else {
-        Get.offAll(HomePage());
+        Get.offAll(Navbar());
         print("user");
       }
     } else {
