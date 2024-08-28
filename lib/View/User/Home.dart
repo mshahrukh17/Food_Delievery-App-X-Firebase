@@ -3,6 +3,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delievery_app/Constants/AppColor.dart';
+import 'package:food_delievery_app/View/User/DishDetail.dart';
 import 'package:food_delievery_app/View/User/UserController/UserController.dart';
 import 'package:food_delievery_app/Widgets/MyButton.dart';
 import 'package:food_delievery_app/Widgets/MyText.dart';
@@ -67,15 +68,19 @@ class _HomePageState extends State<HomePage> {
                               ? CircleAvatar(
                                   radius: 30,
                                   backgroundColor: Colors.grey.shade200,
-                                  child: CachedNetworkImage(
-                                    imageUrl: "${image}",
-                                    fit: BoxFit.cover,
-                                    placeholder: (context, url) =>
-                                        CircularProgressIndicator(
-                                      color: Color(0xfffE89E2A),
+                                  child: ClipOval(
+                                    child: CachedNetworkImage(
+                                      imageUrl: "${image}",
+                                      fit: BoxFit.cover,
+                                      height: 90.0,
+                                      width: 90.0,
+                                      placeholder: (context, url) =>
+                                          CircularProgressIndicator(
+                                        color: Color(0xfffE89E2A),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error_outline_rounded),
                                     ),
-                                    errorWidget: (context, url, error) =>
-                                        Icon(Icons.error_outline_rounded),
                                   ),
                                 )
                               : CircleAvatar(
@@ -153,11 +158,17 @@ class _HomePageState extends State<HomePage> {
                           ),
                     controller.dishloading
                         ? Center(
-                            child: CircularProgressIndicator(
-                            color: Color(0xfffE89E2A),
-                          ))
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 160),
+                              child: CircularProgressIndicator(
+                              color: Color(0xfffE89E2A),
+                                                        ),
+                            ))
                         : controller.dishlist.isEmpty
-                            ? Center(child: Text("No Dishes in this Category"))
+                            ? Center(child: Padding(
+                              padding: const EdgeInsets.only(top: 160),
+                              child: Text("No Dishes in this Category"),
+                            ))
                             : GridView.builder(
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
@@ -168,157 +179,162 @@ class _HomePageState extends State<HomePage> {
                                         crossAxisCount: 2),
                                 itemBuilder: (context, index) {
                                   var dishes = controller.dishlist[index];
-                                  return Card(
-                                    elevation: 4,
-                                    color: Colors.white,
-                                    child: GridTile(
-                                        child: Column(
-                                      children: [
-                                        SizedBox(
-                                          height: 8,
-                                        ),
-                                        CircleAvatar(
-                                          radius: 40,
-                                          backgroundColor: Colors.grey.shade200,
-                                          child: CachedNetworkImage(
-                                            imageUrl: dishes["dishimage"],
-                                            fit: BoxFit.cover,
-                                            placeholder: (context, url) =>
-                                                CircularProgressIndicator(
+                                  return GestureDetector(
+                                    onTap: () => Get.to(DishDetail(Dishdata: controller.dishlist[index])),
+                                    child: Card(
+                                      elevation: 4,
+                                      color: Colors.white,
+                                      child: GridTile(
+                                          child: Column(
+                                        children: [
+                                          SizedBox(
+                                            height: 8,
+                                          ),
+                                          CircleAvatar(
+                                            radius: 40,
+                                            backgroundColor: Colors.grey.shade200,
+                                            child: ClipOval(
+                                              child: CachedNetworkImage(
+                                                imageUrl: dishes["dishimage"],
+                                                fit: BoxFit.cover,
+                                                placeholder: (context, url) =>
+                                                    CircularProgressIndicator(
+                                                  color: Color(0xfffE89E2A),
+                                                ),
+                                                errorWidget:
+                                                    (context, url, error) => Icon(
+                                                        Icons
+                                                            .error_outline_rounded),
+                                              ),
+                                            ),
+                                          ),
+                                          Text(
+                                            dishes["dishname"],
+                                            style: ThemeText.profile(18.0),
+                                            maxLines: 2,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          Text(
+                                            "\$ ${dishes["dishprice"]}",
+                                            style: ThemeText.profile2(16.0),
+                                          ),
+                                          Spacer(),
+                                          Container(
+                                            height: 35,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                1,
+                                            decoration: BoxDecoration(
                                               color: Color(0xfffE89E2A),
                                             ),
-                                            errorWidget:
-                                                (context, url, error) => Icon(
-                                                    Icons
-                                                        .error_outline_rounded),
-                                          ),
-                                        ),
-                                        Text(
-                                          dishes["dishname"],
-                                          style: ThemeText.profile(18.0),
-                                          maxLines: 2,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        Text(
-                                          "\$ ${dishes["dishprice"]}",
-                                          style: ThemeText.profile2(16.0),
-                                        ),
-                                        Spacer(),
-                                        Container(
-                                          height: 35,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              1,
-                                          decoration: BoxDecoration(
-                                            color: Color(0xfffE89E2A),
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: [
-                                              IconButton(
-                                                  onPressed: () {
-                                                    showModalBottomSheet(
-                                                        context: context,
-                                                        builder: (context) {
-                                                          return Container(
-                                                            height: 200,
-                                                            width: MediaQuery.of(context).size.width * 1,
-                                                            decoration: BoxDecoration(
-                                                            color: Colors.white,
-                                                            borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))
-                                                            ),
-                                                            child: Column(
-                                                              children: [
-                                                                Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .only(
-                                                                          left:
-                                                                              15,
-                                                                          right:
-                                                                              15,
-                                                                          top:
-                                                                              20),
-                                                                  child: Row(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceBetween,
-                                                                    children: [
-                                                                      CircleAvatar(
-                                                                        radius:
-                                                                            40,
-                                                                        backgroundColor: Colors
-                                                                            .grey
-                                                                            .shade200,
-                                                                        child:
-                                                                            CachedNetworkImage(
-                                                                          imageUrl:
-                                                                              dishes["dishimage"],
-                                                                          fit: BoxFit
-                                                                              .cover,
-                                                                          placeholder: (context, url) =>
-                                                                              CircularProgressIndicator(
-                                                                            color:
-                                                                                Color(0xfffE89E2A),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              children: [
+                                                IconButton(
+                                                    onPressed: () {
+                                                      showModalBottomSheet(
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return Container(
+                                                              height: 200,
+                                                              width: MediaQuery.of(context).size.width * 1,
+                                                              decoration: BoxDecoration(
+                                                              color: Colors.white,
+                                                              borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))
+                                                              ),
+                                                              child: Column(
+                                                                children: [
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .only(
+                                                                            left:
+                                                                                15,
+                                                                            right:
+                                                                                15,
+                                                                            top:
+                                                                                20),
+                                                                    child: Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .spaceBetween,
+                                                                      children: [
+                                                                        CircleAvatar(
+                                                                          radius:
+                                                                              40,
+                                                                          backgroundColor: Colors
+                                                                              .grey
+                                                                              .shade200,
+                                                                          child:
+                                                                              CachedNetworkImage(
+                                                                            imageUrl:
+                                                                                dishes["dishimage"],
+                                                                            fit: BoxFit
+                                                                                .cover,
+                                                                            placeholder: (context, url) =>
+                                                                                CircularProgressIndicator(
+                                                                              color:
+                                                                                  Color(0xfffE89E2A),
+                                                                            ),
+                                                                            errorWidget: (context, url, error) =>
+                                                                                Icon(Icons.error_outline_rounded),
                                                                           ),
-                                                                          errorWidget: (context, url, error) =>
-                                                                              Icon(Icons.error_outline_rounded),
                                                                         ),
-                                                                      ),
-                                                                      Text(
-                                                                        dishes[
-                                                                            "dishname"],
-                                                                        style: ThemeText.profile(
-                                                                            18.0),
-                                                                        maxLines:
-                                                                            2,
-                                                                        textAlign:
-                                                                            TextAlign.center,
-                                                                      ),
-                                                                      Text(
-                                                                        "\$ ${dishes["dishprice"]}",
-                                                                        style: ThemeText.profile2(
-                                                                            16.0),
-                                                                      ),
-                                                                    ],
+                                                                        Text(
+                                                                          dishes[
+                                                                              "dishname"],
+                                                                          style: ThemeText.profile(
+                                                                              18.0),
+                                                                          maxLines:
+                                                                              2,
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                        ),
+                                                                        Text(
+                                                                          "\$ ${dishes["dishprice"]}",
+                                                                          style: ThemeText.profile2(
+                                                                              16.0),
+                                                                        ),
+                                                                      ],
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                                Divider(),
-                                                                Spacer(),
-                                                                Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .only(
-                                                                          bottom:
-                                                                              15),
-                                                                  child: MyButton(
-                                                                      onpress:
-                                                                          () {},
-                                                                      buttontext:
-                                                                          "Add to Cart"),
-                                                                )
-                                                              ],
-                                                            ),
-                                                          );
-                                                        });
-                                                  },
-                                                  icon: Icon(
-                                                    Icons.shopping_cart,
-                                                    color: Colors.black,
-                                                  )),
-                                              IconButton(
-                                                  onPressed: () {},
-                                                  icon: Icon(
-                                                    Icons.info,
-                                                    color: Colors.black,
-                                                  )),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    )),
+                                                                  Divider(),
+                                                                  Spacer(),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets
+                                                                            .only(
+                                                                            bottom:
+                                                                                15),
+                                                                    child: MyButton(
+                                                                        onpress:
+                                                                            () {},
+                                                                        buttontext:
+                                                                            "Add to Cart"),
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            );
+                                                          });
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.shopping_cart,
+                                                      color: Colors.black,
+                                                    )),
+                                                IconButton(
+                                                    onPressed: () {},
+                                                    icon: Icon(
+                                                      Icons.favorite_outline,
+                                                      color: Colors.black,
+                                                    )),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      )),
+                                    ),
                                   );
                                 }),
                   ],

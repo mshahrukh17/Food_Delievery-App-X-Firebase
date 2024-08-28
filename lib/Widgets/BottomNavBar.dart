@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, file_names, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, use_full_hex_values_for_flutter_colors
 
 import 'package:flutter/material.dart';
+import 'package:food_delievery_app/View/User/CartPage.dart';
 import 'package:food_delievery_app/View/User/Home.dart';
 import 'package:food_delievery_app/View/User/UserInfo.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -28,22 +29,22 @@ class _NavbarState extends State<Navbar> {
         },
         children: [
           HomePage(),
-          Center(child: Text("Favourite")),
-          Center(child: Text("person")),
+          CartPage(),
+          Center(child: Text("Favorite")),
           UserInfoPage()
         ],
       ),
       bottomNavigationBar: Container(
-        color: Color(0xfff81591E),
+        color: Color(0xfffE89E2A),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
           child: GNav(
               rippleColor:
-                  Colors.black,
-              hoverColor: Colors.black,
-              backgroundColor: Color(0xfff81591E),
+                  Color(0xfffE89E2A),
+              hoverColor: Color(0xfffE89E2A),
+              backgroundColor: Color(0xfffE89E2A),
               color: Colors.white,
-              activeColor: Colors.black,
+              activeColor: Color(0xfffE89E2A),
               tabBackgroundColor: Colors.white,
                duration: Duration(milliseconds: 400),
               gap: 8.0,
@@ -64,8 +65,8 @@ class _NavbarState extends State<Navbar> {
                   icon: Icons.home,
                   text: "Home",
                 ),
-                GButton(icon: Icons.favorite, text: "Favourite"),
                 GButton(icon: Icons.shopping_bag, text: "Cart"),
+                GButton(icon: Icons.favorite, text: "Favorite"),
                 GButton(icon: Icons.person, text: "Person")
               ]),
         ),

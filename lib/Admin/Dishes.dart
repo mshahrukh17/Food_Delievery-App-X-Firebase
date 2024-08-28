@@ -8,7 +8,6 @@ import 'package:food_delievery_app/Controller/AdminController/AdminDishControlle
 import 'package:food_delievery_app/Widgets/MyText.dart';
 import 'package:food_delievery_app/Widgets/MyTextField.dart';
 import 'package:food_delievery_app/Widgets/Mybutton.dart';
-import 'package:food_delievery_app/Widgets/Mybutton2.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -254,15 +253,17 @@ class _DishesState extends State<Dishes> {
                                   CircleAvatar(
                                     radius: 30,
                                     backgroundColor: Colors.grey.shade200,
-                                    child: CachedNetworkImage(
-                                      imageUrl: dishes["dishimage"],
-                                      fit: BoxFit.cover,
-                                      placeholder: (context, url) =>
-                                          CircularProgressIndicator(
-                                        color: Color(0xfffE89E2A),
+                                    child: ClipOval(
+                                      child: CachedNetworkImage(
+                                        imageUrl: dishes["dishimage"],
+                                        fit: BoxFit.cover,
+                                        placeholder: (context, url) =>
+                                            CircularProgressIndicator(
+                                          color: Color(0xfffE89E2A),
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error_outline_rounded),
                                       ),
-                                      errorWidget: (context, url, error) =>
-                                          Icon(Icons.error_outline_rounded),
                                     ),
                                   ),
                                   SizedBox(

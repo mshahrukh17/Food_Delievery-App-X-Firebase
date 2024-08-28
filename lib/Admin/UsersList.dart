@@ -61,15 +61,19 @@ class _UsersListState extends State<UsersList> {
                           child: GridTile(
                             header: CircleAvatar(
                               radius: 45,
-                              child: CachedNetworkImage(
-                                imageUrl: user["image"],
-                                fit: BoxFit.cover,
-                                placeholder: (context, url) =>
-                                    CircularProgressIndicator(
-                                  color: Color(0xfffE89E2A),
+                              child: ClipOval(
+                                child: CachedNetworkImage(
+                                  imageUrl: user["image"],
+                                  fit: BoxFit.cover,
+                                  width: 90.0,
+                                  height: 90.0,
+                                  placeholder: (context, url) =>
+                                      CircularProgressIndicator(
+                                    color: Color(0xfffE89E2A),
+                                  ),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error_outline_rounded),
                                 ),
-                                errorWidget: (context, url, error) =>
-                                    Icon(Icons.error_outline_rounded),
                               ),
                             ),
                             child: Column(

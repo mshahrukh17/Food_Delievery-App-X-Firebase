@@ -57,14 +57,18 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 child: CircleAvatar(
                     radius: 50,
                     backgroundColor: Colors.grey.shade200,
-                    child: CachedNetworkImage(
-                      imageUrl: "${image}",
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) => CircularProgressIndicator(
-                        color: Color(0xfffE89E2A),
+                    child: ClipOval(
+                      child: CachedNetworkImage(
+                        imageUrl: "${image}",
+                        fit: BoxFit.cover,
+                        height: 100.0,
+                        width: 100.0,
+                        placeholder: (context, url) => CircularProgressIndicator(
+                          color: Color(0xfffE89E2A),
+                        ),
+                        errorWidget: (context, url, error) =>
+                            Icon(Icons.error_outline_rounded),
                       ),
-                      errorWidget: (context, url, error) =>
-                          Icon(Icons.error_outline_rounded),
                     ),
                   ),
               )

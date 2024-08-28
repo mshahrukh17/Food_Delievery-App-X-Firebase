@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:food_delievery_app/Admin/AdminDashboard.dart';
 import 'package:food_delievery_app/Constants/AppColor.dart';
 import 'package:food_delievery_app/View/Auth/Loginpage.dart';
-import 'package:food_delievery_app/View/User/Home.dart';
 import 'package:food_delievery_app/Widgets/BottomNavBar.dart';
 import 'package:food_delievery_app/Widgets/MyText.dart';
 import 'package:get/get.dart';

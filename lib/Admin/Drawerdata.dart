@@ -65,14 +65,16 @@ class _drawerdataState extends State<drawerdata> {
                   CircleAvatar(
                     radius: 50,
                     backgroundColor: Colors.grey.shade200,
-                    child: CachedNetworkImage(
-                      imageUrl: image,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) => CircularProgressIndicator(
-                        color: Color(0xfffE89E2A),
+                    child: ClipOval(
+                      child: CachedNetworkImage(
+                        imageUrl: image,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => CircularProgressIndicator(
+                          color: Color(0xfffE89E2A),
+                        ),
+                        errorWidget: (context, url, error) =>
+                            Icon(Icons.error_outline_rounded),
                       ),
-                      errorWidget: (context, url, error) =>
-                          Icon(Icons.error_outline_rounded),
                     ),
                   ):
                   CircleAvatar(
