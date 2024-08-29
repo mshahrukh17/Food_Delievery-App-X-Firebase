@@ -4,7 +4,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delievery_app/Constants/AppColor.dart';
 import 'package:food_delievery_app/View/User/DishDetail.dart';
+import 'package:food_delievery_app/View/User/UserController/FavoriteController.dart';
 import 'package:food_delievery_app/View/User/UserController/UserController.dart';
+import 'package:food_delievery_app/Widgets/Message.dart';
 import 'package:food_delievery_app/Widgets/MyButton.dart';
 import 'package:food_delievery_app/Widgets/MyText.dart';
 import 'package:get/get.dart';
@@ -19,6 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var usercontroller = Get.put(UserController());
+  var favcontroller = Get.put(FavoriteController());
 
   var name = "";
   var image = "";
@@ -159,16 +162,17 @@ class _HomePageState extends State<HomePage> {
                     controller.dishloading
                         ? Center(
                             child: Padding(
-                              padding: const EdgeInsets.only(top: 160),
-                              child: CircularProgressIndicator(
+                            padding: const EdgeInsets.only(top: 160),
+                            child: CircularProgressIndicator(
                               color: Color(0xfffE89E2A),
-                                                        ),
-                            ))
+                            ),
+                          ))
                         : controller.dishlist.isEmpty
-                            ? Center(child: Padding(
-                              padding: const EdgeInsets.only(top: 160),
-                              child: Text("No Dishes in this Category"),
-                            ))
+                            ? Center(
+                                child: Padding(
+                                padding: const EdgeInsets.only(top: 160),
+                                child: Text("No Dishes in this Category"),
+                              ))
                             : GridView.builder(
                                 shrinkWrap: true,
                                 physics: NeverScrollableScrollPhysics(),
@@ -180,7 +184,8 @@ class _HomePageState extends State<HomePage> {
                                 itemBuilder: (context, index) {
                                   var dishes = controller.dishlist[index];
                                   return GestureDetector(
-                                    onTap: () => Get.to(DishDetail(Dishdata: controller.dishlist[index])),
+                                    onTap: () => Get.to(DishDetail(
+                                        Dishdata: controller.dishlist[index])),
                                     child: Card(
                                       elevation: 4,
                                       color: Colors.white,
@@ -192,7 +197,8 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           CircleAvatar(
                                             radius: 40,
-                                            backgroundColor: Colors.grey.shade200,
+                                            backgroundColor:
+                                                Colors.grey.shade200,
                                             child: ClipOval(
                                               child: CachedNetworkImage(
                                                 imageUrl: dishes["dishimage"],
@@ -201,10 +207,10 @@ class _HomePageState extends State<HomePage> {
                                                     CircularProgressIndicator(
                                                   color: Color(0xfffE89E2A),
                                                 ),
-                                                errorWidget:
-                                                    (context, url, error) => Icon(
-                                                        Icons
-                                                            .error_outline_rounded),
+                                                errorWidget: (context, url,
+                                                        error) =>
+                                                    Icon(Icons
+                                                        .error_outline_rounded),
                                               ),
                                             ),
                                           ),
@@ -226,8 +232,12 @@ class _HomePageState extends State<HomePage> {
                                                     .width *
                                                 1,
                                             decoration: BoxDecoration(
-                                              color: Color(0xfffE89E2A),
-                                            ),
+                                                color: Color(0xfffE89E2A),
+                                                borderRadius: BorderRadius.only(
+                                                    bottomLeft:
+                                                        Radius.circular(12),
+                                                    bottomRight:
+                                                        Radius.circular(12))),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceAround,
@@ -239,23 +249,32 @@ class _HomePageState extends State<HomePage> {
                                                           builder: (context) {
                                                             return Container(
                                                               height: 200,
-                                                              width: MediaQuery.of(context).size.width * 1,
+                                                              width: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .width *
+                                                                  1,
                                                               decoration: BoxDecoration(
-                                                              color: Colors.white,
-                                                              borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20))
-                                                              ),
+                                                                  color: Colors
+                                                                      .white,
+                                                                  borderRadius: BorderRadius.only(
+                                                                      topLeft: Radius
+                                                                          .circular(
+                                                                              20),
+                                                                      topRight:
+                                                                          Radius.circular(
+                                                                              20))),
                                                               child: Column(
                                                                 children: [
                                                                   Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .only(
-                                                                            left:
-                                                                                15,
-                                                                            right:
-                                                                                15,
-                                                                            top:
-                                                                                20),
+                                                                    padding: const EdgeInsets
+                                                                        .only(
+                                                                        left:
+                                                                            15,
+                                                                        right:
+                                                                            15,
+                                                                        top:
+                                                                            20),
                                                                     child: Row(
                                                                       mainAxisAlignment:
                                                                           MainAxisAlignment
@@ -271,12 +290,11 @@ class _HomePageState extends State<HomePage> {
                                                                               CachedNetworkImage(
                                                                             imageUrl:
                                                                                 dishes["dishimage"],
-                                                                            fit: BoxFit
-                                                                                .cover,
+                                                                            fit:
+                                                                                BoxFit.cover,
                                                                             placeholder: (context, url) =>
                                                                                 CircularProgressIndicator(
-                                                                              color:
-                                                                                  Color(0xfffE89E2A),
+                                                                              color: Color(0xfffE89E2A),
                                                                             ),
                                                                             errorWidget: (context, url, error) =>
                                                                                 Icon(Icons.error_outline_rounded),
@@ -285,8 +303,8 @@ class _HomePageState extends State<HomePage> {
                                                                         Text(
                                                                           dishes[
                                                                               "dishname"],
-                                                                          style: ThemeText.profile(
-                                                                              18.0),
+                                                                          style:
+                                                                              ThemeText.profile(18.0),
                                                                           maxLines:
                                                                               2,
                                                                           textAlign:
@@ -294,8 +312,8 @@ class _HomePageState extends State<HomePage> {
                                                                         ),
                                                                         Text(
                                                                           "\$ ${dishes["dishprice"]}",
-                                                                          style: ThemeText.profile2(
-                                                                              16.0),
+                                                                          style:
+                                                                              ThemeText.profile2(16.0),
                                                                         ),
                                                                       ],
                                                                     ),
@@ -303,16 +321,18 @@ class _HomePageState extends State<HomePage> {
                                                                   Divider(),
                                                                   Spacer(),
                                                                   Padding(
-                                                                    padding:
-                                                                        const EdgeInsets
-                                                                            .only(
-                                                                            bottom:
-                                                                                15),
+                                                                    padding: const EdgeInsets
+                                                                        .only(
+                                                                        bottom:
+                                                                            15),
                                                                     child: MyButton(
-                                                                        onpress:
-                                                                            () {},
-                                                                        buttontext:
-                                                                            "Add to Cart"),
+                                                                        onpress: () {
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                          Get.to(
+                                                                              DishDetail(Dishdata: dishes));
+                                                                        },
+                                                                        buttontext: "Dish Detail"),
                                                                   )
                                                                 ],
                                                               ),
@@ -324,10 +344,33 @@ class _HomePageState extends State<HomePage> {
                                                       color: Colors.black,
                                                     )),
                                                 IconButton(
-                                                    onPressed: () {},
+                                                    onPressed: () {
+                                                      if (favcontroller.isfav(
+                                                          dishes["dishkey"])) {
+                                                        favcontroller
+                                                            .removefromfav(
+                                                                dishes);
+                                                        message("Removed",
+                                                            "${dishes["dishname"]} Removed from Favorite");
+                                                      } else {
+                                                        favcontroller
+                                                            .addtofav(dishes);
+                                                        message("Added",
+                                                            "${dishes["dishname"]} Added in Favorite");
+                                                      }
+                                                      setState(() {});
+                                                    },
                                                     icon: Icon(
-                                                      Icons.favorite_outline,
-                                                      color: Colors.black,
+                                                      favcontroller.isfav(
+                                                              dishes["dishkey"])
+                                                          ? Icons.favorite
+                                                          : Icons
+                                                              .favorite_outline,
+                                                      color: favcontroller
+                                                              .isfav(dishes[
+                                                                  "dishkey"])
+                                                          ? Colors.red
+                                                          : Colors.black,
                                                     )),
                                               ],
                                             ),

@@ -80,9 +80,11 @@ class _UsersListState extends State<UsersList> {
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 Text(user["name"],
-                                    style: ThemeText.profile(20.0)),
+                                    style: ThemeText.profile(18.0)),
                                 Text(user["email"],
-                                    style: ThemeText.profile2(15.0)),
+                                    style: ThemeText.profile2(12.0),
+                                    textAlign: TextAlign.center,
+                                    ),
                               ],
                             ),
                           ),

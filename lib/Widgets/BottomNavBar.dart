@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:food_delievery_app/View/User/CartPage.dart';
+import 'package:food_delievery_app/View/User/Favourite.dart';
 import 'package:food_delievery_app/View/User/Home.dart';
 import 'package:food_delievery_app/View/User/UserInfo.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -30,7 +31,7 @@ class _NavbarState extends State<Navbar> {
         children: [
           HomePage(),
           CartPage(),
-          Center(child: Text("Favorite")),
+          Favoriteitem(),
           UserInfoPage()
         ],
       ),

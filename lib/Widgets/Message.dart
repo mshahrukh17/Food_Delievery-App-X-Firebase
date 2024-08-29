@@ -10,5 +10,5 @@ void message(error, message) {
       backgroundColor: Colors.grey.shade200,
       borderRadius: 20,
       borderWidth: 3,
-      duration: const Duration(seconds: 2));
+      duration: const Duration(seconds: 1));
 }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delievery_app/Constants/AppColor.dart';
 import 'package:food_delievery_app/View/Auth/Loginpage.dart';
 import 'package:food_delievery_app/Widgets/MyText.dart';
+import 'package:food_delievery_app/Widgets/Mybutton2.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -48,13 +49,16 @@ class _UserInfoPageState extends State<UserInfoPage> {
       body: SafeArea(
           child: Column(
         children: [
-          Text("Profile",
-          style: ThemeText.title(20.0),
+          Text(
+            "P R O F I L E",
+            style: ThemeText.title(20.0),
           ),
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
           image != ""
               ? Center(
-                child: CircleAvatar(
+                  child: CircleAvatar(
                     radius: 50,
                     backgroundColor: Colors.grey.shade200,
                     child: ClipOval(
@@ -63,7 +67,8 @@ class _UserInfoPageState extends State<UserInfoPage> {
                         fit: BoxFit.cover,
                         height: 100.0,
                         width: 100.0,
-                        placeholder: (context, url) => CircularProgressIndicator(
+                        placeholder: (context, url) =>
+                            CircularProgressIndicator(
                           color: Color(0xfffE89E2A),
                         ),
                         errorWidget: (context, url, error) =>
@@ -71,33 +76,76 @@ class _UserInfoPageState extends State<UserInfoPage> {
                       ),
                     ),
                   ),
-              )
+                )
               : CircleAvatar(
                   radius: 50,
                   backgroundColor: Colors.grey.shade200,
                 ),
-                SizedBox(height: 8.0,),
-                Text(name.toString().toUpperCase(),
-                style: ThemeText.profile(18.0),
-                ),
-                SizedBox(height: 4.0,),
-                Text(email.toString(),
-                style: ThemeText.profile2(16.0),
-                ),
-                SizedBox(height: 40.0,),
-                options(context, "Orders".toString(), Icons.arrow_forward_ios),
-                SizedBox(height: 20.0,),
-                 options(context, "History".toString(), Icons.arrow_forward_ios),
-                 SizedBox(height: 20.0,),
-                  options(context, "Help".toString(), Icons.arrow_forward_ios),
-                   SizedBox(height: 20.0,),
-                  options(context, "Privacy Policy".toString(), Icons.arrow_forward_ios),
-                  SizedBox(height: 20.0,),
-                   GestureDetector(
-                    onTap: () {
-                      logout();
-                    },
-                    child: options(context, "Logout".toString(), Icons.logout))
+          SizedBox(
+            height: 8.0,
+          ),
+          Text(
+            name.toString().toUpperCase(),
+            style: ThemeText.profile(18.0),
+          ),
+          SizedBox(
+            height: 4.0,
+          ),
+          Text(
+            email.toString(),
+            style: ThemeText.profile2(16.0),
+          ),
+          SizedBox(
+            height: 40.0,
+          ),
+          options(context, "Orders".toString(), Icons.arrow_forward_ios),
+          SizedBox(
+            height: 20.0,
+          ),
+          options(context, "History".toString(), Icons.arrow_forward_ios),
+          SizedBox(
+            height: 20.0,
+          ),
+          options(context, "Help".toString(), Icons.arrow_forward_ios),
+          SizedBox(
+            height: 20.0,
+          ),
+          options(
+              context, "Privacy Policy".toString(), Icons.arrow_forward_ios),
+          SizedBox(
+            height: 20.0,
+          ),
+          GestureDetector(
+              onTap: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text(
+                          "Logout",
+                          style: ThemeText.title(20.0),
+                        ),
+                        content: Text(
+                          "Are you sure?",
+                          style: ThemeText.profile(16.0),
+                        ),
+                        actions: [
+                          MyButton2(
+                              onpress: () {
+                                Navigator.pop(context);
+                              },
+                              buttontext: "No"),
+                          MyButton2(
+                              onpress: () {
+                                logout();
+                              },
+                              buttontext: "Yes")
+                        ],
+                        backgroundColor: Colors.grey.shade200,
+                      );
+                    });
+              },
+              child: options(context, "Logout".toString(), Icons.logout))
         ],
       )),
     );
@@ -105,31 +153,29 @@ class _UserInfoPageState extends State<UserInfoPage> {
 
   Material options(BuildContext context, text, icon) {
     return Material(
-                elevation: 2,
-                borderRadius: BorderRadius.circular(20),
-                child: Container(
-                  height: 40,
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius : BorderRadius.circular(20),
-                    border: Border.all(
-                      color: Colors.black
-                    )
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20, right: 12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(text,
-                        style: ThemeText.profile(16.0),
-                        ),
-                        Icon(icon)
-                      ],
-                    ),
-                  ),
-                ),
-              );
+      elevation: 2,
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        height: 40,
+        width: MediaQuery.of(context).size.width * 0.8,
+        decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: Colors.black)),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 12),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                text,
+                style: ThemeText.profile(16.0),
+              ),
+              Icon(icon)
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
