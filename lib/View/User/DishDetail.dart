@@ -100,10 +100,10 @@ class _DishDetailState extends State<DishDetail> {
                 onpress: () {
                   if (cartcontroller.isInCart(widget.Dishdata["dishkey"])) {
                     cartcontroller.removefromcart(widget.Dishdata);
-                    message("Success", "Dish Removed from Cart");
+                    message("Success", "${widget.Dishdata["dishname"]} Removed from Cart");
                   } else {
                     cartcontroller.addtocart(widget.Dishdata);
-                    message("Success", "Dish Added in Cart");
+                    message("Success", "${widget.Dishdata["dishname"]} Added in Cart");
                   }
                 },
                 buttontext: cartcontroller.isInCart(widget.Dishdata["dishkey"])

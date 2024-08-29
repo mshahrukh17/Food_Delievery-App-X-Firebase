@@ -29,7 +29,7 @@ class _FavoriteitemState extends State<Favoriteitem> {
         ),
         centerTitle: true,
       ),
-      body:favcontroller.favoritelist.isEmpty ? Center(child: Text("Empty Favorite",
+      body:favcontroller.favoritelist.isEmpty ? Center(child: Text("Try to add Favorite Dishes",
       style: ThemeText.profile2(15.0),
       )): GridView.builder(
         shrinkWrap: true,
