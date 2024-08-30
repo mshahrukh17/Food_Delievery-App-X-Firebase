@@ -46,7 +46,7 @@ class _UsersListState extends State<UsersList> {
         body: GetBuilder<AdminUserController>(
           builder: (controller) {
             return controller.isloading
-                ? ShimmerTest()
+                ?  ShimmerLoading.Shimmer1()
                 : GridView.builder(
                     physics: BouncingScrollPhysics(),
                     itemCount: controller.userslist.length,

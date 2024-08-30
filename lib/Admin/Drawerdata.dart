@@ -9,6 +9,7 @@ import 'package:food_delievery_app/Admin/UsersList.dart';
 import 'package:food_delievery_app/Constants/AppColor.dart';
 import 'package:food_delievery_app/View/Auth/Loginpage.dart';
 import 'package:food_delievery_app/Widgets/MyText.dart';
+import 'package:food_delievery_app/Widgets/Mybutton2.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -215,7 +216,24 @@ class _drawerdataState extends State<drawerdata> {
                   dishes = false;
                   signout = true;
                 });
-                Get.offAll(logout());
+                showDialog(context: context, builder: (context) {
+                  return AlertDialog(
+                    title: Text("Logout",
+                    style: ThemeText.title(20.0),
+                    ),
+                    content: Text("Are You Sure?",
+                    style: ThemeText.profile(16.0),
+                    ),
+                    actions: [
+                      MyButton2(onpress: (){
+                        Navigator.pop(context);
+                      }, buttontext: "No"),
+                      MyButton2(onpress: (){
+                        logout();
+                      }, buttontext: "Yes")
+                    ],
+                  );
+                },);
               },
               child: Card(
                 elevation: 5,

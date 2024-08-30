@@ -107,6 +107,7 @@ class AdminDishController extends GetxController {
       dishname.clear();
       dishprice.clear();
       message("Success", "Dish added successfully");
+      update();
     }
     update();
   }

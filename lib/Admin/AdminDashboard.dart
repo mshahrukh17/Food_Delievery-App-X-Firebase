@@ -40,7 +40,7 @@ class _AdminDashBoardState extends State<AdminDashBoard> {
         ),
       ),
       body: GetBuilder<AdminHomeController>(builder: (controller) {
-        return controller.isloading ? ShimmerTest(): Column(
+        return controller.isloading ? ShimmerLoading.Shimmer1(): Column(
           children: [
             SizedBox(height: 20,),
             Row(

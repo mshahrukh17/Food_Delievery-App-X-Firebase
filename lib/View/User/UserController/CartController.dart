@@ -1,5 +1,6 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, unnecessary_brace_in_string_interps
 
+import 'package:food_delievery_app/Widgets/Message.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
@@ -40,6 +41,7 @@ class CartController extends GetxController {
       cartList[index]["quantity"] -= 1;
     } else {
       cartList.removeAt(index);
+      message("Remove", "Dish Remove From Cart");
     }
     update();
   }

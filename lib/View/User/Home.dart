@@ -3,9 +3,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delievery_app/Constants/AppColor.dart';
-import 'package:food_delievery_app/View/User/CartPage.dart';
 import 'package:food_delievery_app/View/User/DishDetail.dart';
-import 'package:food_delievery_app/View/User/UserController/CartController.dart';
 import 'package:food_delievery_app/View/User/UserController/FavoriteController.dart';
 import 'package:food_delievery_app/View/User/UserController/UserController.dart';
 import 'package:food_delievery_app/Widgets/Message.dart';
@@ -24,7 +22,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var usercontroller = Get.put(UserController());
   var favcontroller = Get.put(FavoriteController());
-  final cartcontroller = Get.find<CartController>();
 
   var name = "";
   var image = "";
@@ -99,41 +96,9 @@ class _HomePageState extends State<HomePage> {
                     SizedBox(
                       height: 10,
                     ),
-                    Row(
-                      children: [
-                        Text(
-                          "Delicious \nfood for you",
-                          style: ThemeText.title(24.0),
-                        ),
-                        Spacer(),
-                        GestureDetector(
-                            onTap: () async {
-                              await Get.to(CartPage());
-                            },
-                            child: cartcontroller.cartList.isEmpty
-                                ? CircleAvatar(
-                                    radius: 25,
-                                    backgroundColor: Colors.grey.shade200,
-                                    child: Icon(
-                                      Icons.shopping_bag,
-                                      color: Colors.black,
-                                    ))
-                                : Badge(
-                                    alignment: Alignment.topLeft,
-                                    textColor: Colors.white,
-                                    backgroundColor: Color(0xfffE89E2A),
-                                    label: Text(cartcontroller.cartList.length
-                                        .toString()),
-                                    isLabelVisible: true,
-                                    child: CircleAvatar(
-                                        radius: 25,
-                                        backgroundColor: Colors.grey.shade200,
-                                        child: Icon(
-                                          Icons.shopping_bag,
-                                          color: Colors.black,
-                                        )),
-                                  ))
-                      ],
+                    Text(
+                      "Delicious \nfood for you",
+                      style: ThemeText.title(24.0),
                     ),
                     SizedBox(
                       height: 10,
@@ -196,12 +161,12 @@ class _HomePageState extends State<HomePage> {
                           ),
                     controller.dishloading
                         ? Center(
-                            child: Padding(
-                            padding: const EdgeInsets.only(top: 160),
-                            child: CircularProgressIndicator(
-                              color: Color(0xfffE89E2A),
-                            ),
-                          ))
+                          child: Padding(
+                                padding: const EdgeInsets.only(top: 160),
+                                child: CircularProgressIndicator(
+                            color: Color(0xfffE89E2A),
+                          ),)
+                        )
                         : controller.dishlist.isEmpty
                             ? Center(
                                 child: Padding(
@@ -219,7 +184,7 @@ class _HomePageState extends State<HomePage> {
                                 itemBuilder: (context, index) {
                                   var dishes = controller.dishlist[index];
                                   return GestureDetector(
-                                    onTap: () => Get.to(DishDetail(
+                                    onTap: () => Get.to(()=> DishDetail(
                                         Dishdata: controller.dishlist[index])),
                                     child: Card(
                                       elevation: 4,
@@ -364,7 +329,7 @@ class _HomePageState extends State<HomePage> {
                                                                         onpress: () {
                                                                           Navigator.pop(
                                                                               context);
-                                                                          Get.to(
+                                                                          Get.to(()=>
                                                                               DishDetail(Dishdata: dishes));
                                                                         },
                                                                         buttontext: "Dish Detail"),
