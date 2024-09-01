@@ -32,8 +32,8 @@ class _DishesState extends State<Dishes> {
     await dishcontroller.getcategory();
   }
 
-  addishes() async {
-    await dishcontroller.adddishincategory();
+  addishes() {
+   dishcontroller.adddishincategory();
   }
 
   @override

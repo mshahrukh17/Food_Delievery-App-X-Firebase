@@ -12,12 +12,18 @@ import 'package:image_picker/image_picker.dart';
 
 class AdminDishController extends GetxController {
   bool isloading = false;
+
+ // => Store the categories in this list <= \\ 
   var catlist = [];
+
+   // => Store the Dishes in this list <= \\
   var dishlist = [];
 
+ // => TextField Controller of Dish page <= \\
   var dishname = TextEditingController();
   var dishprice = TextEditingController();
   // => dropdown values <= \\
+
   var setdropdownvalue = "";
   var selectdropdownkey = "";
 
@@ -26,19 +32,21 @@ class AdminDishController extends GetxController {
   var image;
   var filepath = "";
 
+  var currentIndex = 0;
 
-
+ // => Loader <= \\
   setloading(value) {
     isloading = value;
     update();
   }
-
+// => Dropdown Values <= \\
   setdropdown(value) {
     setdropdownvalue = value["catname"];
     selectdropdownkey = value["catkey"];
     update();
   }
 
+ // => Select image for dishes <= \\
   selectimage(source) async {
     final XFile? file = await _picker.pickImage(source: source);
     if (file != null) {
@@ -49,6 +57,7 @@ class AdminDishController extends GetxController {
     update();
   }
 
+ // => Get categories to show in admin panel <= \\
   getcategory() async {
     setloading(true);
     CollectionReference catginst =
@@ -57,15 +66,19 @@ class AdminDishController extends GetxController {
         .where("status", isEqualTo: true)
         .get()
         .then((QuerySnapshot snapshot) {
-     final suppose = snapshot.docs.map((doc) => doc.data()).toList();
-     var finaldata = [];
-     for (var i = 0; i < suppose.length; i++) {
-        var data = suppose[i] as Map;
+     final catdata = snapshot.docs.map((doc) => doc.data()).toList();
+     // => List 
+     var selectedcat = [];
+     // => For Selected index <= \\
+     for (var i = 0; i < catdata.length; i++) {
+        var data = catdata[i] as Map;
         data["selected"] = false;
-        finaldata.add(data);
+        selectedcat.add(data);
      }
-     catlist = finaldata;
-        print(finaldata);
+   // Set selected category in category List <= \\  
+     catlist = selectedcat;
+        print(selectedcat);
+   // => After we reached this page so show the 0 index data <= \\
         getdishes(0);
       
     });
@@ -74,6 +87,7 @@ class AdminDishController extends GetxController {
   }
 
   adddishincategory() async {
+    // => Add dishes to taking dish information <= \\
     if (image == null) {
       message("Error", "Please enter Dish Image");
     } else if (dishname.text.isEmpty) {
@@ -107,12 +121,15 @@ class AdminDishController extends GetxController {
       dishname.clear();
       dishprice.clear();
       message("Success", "Dish added successfully");
+     getdishes(currentIndex);
       update();
+
     }
     update();
   }
 
   getdishes(index) async {
+    currentIndex=index;
     for (var i = 0; i < catlist.length; i++) {
       catlist[i]["selected"] = false;
     }
@@ -127,7 +144,6 @@ class AdminDishController extends GetxController {
           final alldishes = snapshot.docs.map((doc) => doc.data()).toList();
 
           dishlist = alldishes;
-          // dishlist.indexOf(0);
         } );
         print(dishlist);
         update();

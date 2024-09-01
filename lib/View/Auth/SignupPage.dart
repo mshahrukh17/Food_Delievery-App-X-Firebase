@@ -160,8 +160,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             });
                           },
                           icon: Icon(showpassword == true
-                              ? Icons.remove_red_eye_outlined
-                              : Icons.remove_red_eye)),
+                              ? Icons.visibility_off
+                              : Icons.visibility)),
                     ),
                   ),
                   SizedBox(

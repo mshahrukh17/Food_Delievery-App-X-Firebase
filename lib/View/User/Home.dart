@@ -9,6 +9,7 @@ import 'package:food_delievery_app/View/User/UserController/UserController.dart'
 import 'package:food_delievery_app/Widgets/Message.dart';
 import 'package:food_delievery_app/Widgets/MyButton.dart';
 import 'package:food_delievery_app/Widgets/MyText.dart';
+import 'package:food_delievery_app/Widgets/ShimmerEff.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -20,7 +21,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var usercontroller = Get.put(UserController());
+  var usercontroller = Get.put(UserController(), permanent: true);
   var favcontroller = Get.put(FavoriteController());
 
   var name = "";
@@ -161,11 +162,9 @@ class _HomePageState extends State<HomePage> {
                           ),
                     controller.dishloading
                         ? Center(
-                          child: Padding(
-                                padding: const EdgeInsets.only(top: 160),
-                                child: CircularProgressIndicator(
-                            color: Color(0xfffE89E2A),
-                          ),)
+                          child: SizedBox(
+                            height: MediaQuery.of(context).size.height,
+                            child: ShimmerLoading.Shimmer1())
                         )
                         : controller.dishlist.isEmpty
                             ? Center(
@@ -173,213 +172,217 @@ class _HomePageState extends State<HomePage> {
                                 padding: const EdgeInsets.only(top: 160),
                                 child: Text("No Dishes in this Category"),
                               ))
-                            : GridView.builder(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: controller.dishlist.length,
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                        childAspectRatio: 0.8,
-                                        crossAxisCount: 2),
-                                itemBuilder: (context, index) {
-                                  var dishes = controller.dishlist[index];
-                                  return GestureDetector(
-                                    onTap: () => Get.to(()=> DishDetail(
-                                        Dishdata: controller.dishlist[index])),
-                                    child: Card(
-                                      elevation: 4,
-                                      color: Colors.white,
-                                      child: GridTile(
-                                          child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 8,
-                                          ),
-                                          CircleAvatar(
-                                            radius: 40,
-                                            backgroundColor:
-                                                Colors.grey.shade200,
-                                            child: ClipOval(
-                                              child: CachedNetworkImage(
-                                                imageUrl: dishes["dishimage"],
-                                                fit: BoxFit.cover,
-                                                placeholder: (context, url) =>
-                                                    CircularProgressIndicator(
-                                                  color: Color(0xfffE89E2A),
-                                                ),
-                                                errorWidget: (context, url,
-                                                        error) =>
-                                                    Icon(Icons
-                                                        .error_outline_rounded),
+                            : Column(
+                              children: [
+                                GridView.builder(
+                                    shrinkWrap: true,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    itemCount: controller.dishlist.length,
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                            childAspectRatio: 0.8,
+                                            crossAxisCount: 2),
+                                    itemBuilder: (context, index) {
+                                      var dishes = controller.dishlist[index];
+                                      return GestureDetector(
+                                        onTap: () => Get.to(()=> DishDetail(
+                                            Dishdata: controller.dishlist[index])),
+                                        child: Card(
+                                          elevation: 4,
+                                          color: Colors.white,
+                                          child: GridTile(
+                                              child: Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 8,
                                               ),
-                                            ),
-                                          ),
-                                          Text(
-                                            dishes["dishname"],
-                                            style: ThemeText.profile(18.0),
-                                            maxLines: 2,
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          Text(
-                                            "\$ ${dishes["dishprice"]}",
-                                            style: ThemeText.profile2(16.0),
-                                          ),
-                                          Spacer(),
-                                          Container(
-                                            height: 35,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                1,
-                                            decoration: BoxDecoration(
-                                                color: Color(0xfffE89E2A),
-                                                borderRadius: BorderRadius.only(
-                                                    bottomLeft:
-                                                        Radius.circular(12),
-                                                    bottomRight:
-                                                        Radius.circular(12))),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: [
-                                                IconButton(
-                                                    onPressed: () {
-                                                      showModalBottomSheet(
-                                                          context: context,
-                                                          builder: (context) {
-                                                            return Container(
-                                                              height: 200,
-                                                              width: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .width *
-                                                                  1,
-                                                              decoration: BoxDecoration(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  borderRadius: BorderRadius.only(
-                                                                      topLeft: Radius
-                                                                          .circular(
-                                                                              20),
-                                                                      topRight:
-                                                                          Radius.circular(
-                                                                              20))),
-                                                              child: Column(
-                                                                children: [
-                                                                  Padding(
-                                                                    padding: const EdgeInsets
-                                                                        .only(
-                                                                        left:
-                                                                            15,
-                                                                        right:
-                                                                            15,
-                                                                        top:
-                                                                            20),
-                                                                    child: Row(
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                      children: [
-                                                                        CircleAvatar(
-                                                                          radius:
-                                                                              40,
-                                                                          backgroundColor: Colors
-                                                                              .grey
-                                                                              .shade200,
-                                                                          child:
-                                                                              CachedNetworkImage(
-                                                                            imageUrl:
-                                                                                dishes["dishimage"],
-                                                                            fit:
-                                                                                BoxFit.cover,
-                                                                            placeholder: (context, url) =>
-                                                                                CircularProgressIndicator(
-                                                                              color: Color(0xfffE89E2A),
+                                              CircleAvatar(
+                                                radius: 40,
+                                                backgroundColor:
+                                                    Colors.grey.shade200,
+                                                child: ClipOval(
+                                                  child: CachedNetworkImage(
+                                                    imageUrl: dishes["dishimage"],
+                                                    fit: BoxFit.cover,
+                                                    placeholder: (context, url) =>
+                                                        CircularProgressIndicator(
+                                                      color: Color(0xfffE89E2A),
+                                                    ),
+                                                    errorWidget: (context, url,
+                                                            error) =>
+                                                        Icon(Icons
+                                                            .error_outline_rounded),
+                                                  ),
+                                                ),
+                                              ),
+                                              Text(
+                                                dishes["dishname"],
+                                                style: ThemeText.profile(18.0),
+                                                maxLines: 2,
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              Text(
+                                                "\$ ${dishes["dishprice"]}",
+                                                style: ThemeText.profile2(16.0),
+                                              ),
+                                              Spacer(),
+                                              Container(
+                                                height: 35,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    1,
+                                                decoration: BoxDecoration(
+                                                    color: Color(0xfffE89E2A),
+                                                    borderRadius: BorderRadius.only(
+                                                        bottomLeft:
+                                                            Radius.circular(12),
+                                                        bottomRight:
+                                                            Radius.circular(12))),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.spaceAround,
+                                                  children: [
+                                                    IconButton(
+                                                        onPressed: () {
+                                                          showModalBottomSheet(
+                                                              context: context,
+                                                              builder: (context) {
+                                                                return Container(
+                                                                  height: 200,
+                                                                  width: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .width *
+                                                                      1,
+                                                                  decoration: BoxDecoration(
+                                                                      color: Colors
+                                                                          .white,
+                                                                      borderRadius: BorderRadius.only(
+                                                                          topLeft: Radius
+                                                                              .circular(
+                                                                                  20),
+                                                                          topRight:
+                                                                              Radius.circular(
+                                                                                  20))),
+                                                                  child: Column(
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .only(
+                                                                            left:
+                                                                                15,
+                                                                            right:
+                                                                                15,
+                                                                            top:
+                                                                                20),
+                                                                        child: Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment
+                                                                                  .spaceBetween,
+                                                                          children: [
+                                                                            CircleAvatar(
+                                                                              radius:
+                                                                                  40,
+                                                                              backgroundColor: Colors
+                                                                                  .grey
+                                                                                  .shade200,
+                                                                              child:
+                                                                                  CachedNetworkImage(
+                                                                                imageUrl:
+                                                                                    dishes["dishimage"],
+                                                                                fit:
+                                                                                    BoxFit.cover,
+                                                                                placeholder: (context, url) =>
+                                                                                    CircularProgressIndicator(
+                                                                                  color: Color(0xfffE89E2A),
+                                                                                ),
+                                                                                errorWidget: (context, url, error) =>
+                                                                                    Icon(Icons.error_outline_rounded),
+                                                                              ),
                                                                             ),
-                                                                            errorWidget: (context, url, error) =>
-                                                                                Icon(Icons.error_outline_rounded),
-                                                                          ),
+                                                                            Text(
+                                                                              dishes[
+                                                                                  "dishname"],
+                                                                              style:
+                                                                                  ThemeText.profile(18.0),
+                                                                              maxLines:
+                                                                                  2,
+                                                                              textAlign:
+                                                                                  TextAlign.center,
+                                                                            ),
+                                                                            Text(
+                                                                              "\$ ${dishes["dishprice"]}",
+                                                                              style:
+                                                                                  ThemeText.profile2(16.0),
+                                                                            ),
+                                                                          ],
                                                                         ),
-                                                                        Text(
-                                                                          dishes[
-                                                                              "dishname"],
-                                                                          style:
-                                                                              ThemeText.profile(18.0),
-                                                                          maxLines:
-                                                                              2,
-                                                                          textAlign:
-                                                                              TextAlign.center,
-                                                                        ),
-                                                                        Text(
-                                                                          "\$ ${dishes["dishprice"]}",
-                                                                          style:
-                                                                              ThemeText.profile2(16.0),
-                                                                        ),
-                                                                      ],
-                                                                    ),
+                                                                      ),
+                                                                      Divider(),
+                                                                      Spacer(),
+                                                                      Padding(
+                                                                        padding: const EdgeInsets
+                                                                            .only(
+                                                                            bottom:
+                                                                                15),
+                                                                        child: MyButton(
+                                                                            onpress: () {
+                                                                              Navigator.pop(
+                                                                                  context);
+                                                                              Get.to(()=>
+                                                                                  DishDetail(Dishdata: dishes));
+                                                                            },
+                                                                            buttontext: "Dish Detail"),
+                                                                      )
+                                                                    ],
                                                                   ),
-                                                                  Divider(),
-                                                                  Spacer(),
-                                                                  Padding(
-                                                                    padding: const EdgeInsets
-                                                                        .only(
-                                                                        bottom:
-                                                                            15),
-                                                                    child: MyButton(
-                                                                        onpress: () {
-                                                                          Navigator.pop(
-                                                                              context);
-                                                                          Get.to(()=>
-                                                                              DishDetail(Dishdata: dishes));
-                                                                        },
-                                                                        buttontext: "Dish Detail"),
-                                                                  )
-                                                                ],
-                                                              ),
-                                                            );
-                                                          });
-                                                    },
-                                                    icon: Icon(
-                                                      Icons.shopping_cart,
-                                                      color: Colors.black,
-                                                    )),
-                                                IconButton(
-                                                    onPressed: () {
-                                                      if (favcontroller.isfav(
-                                                          dishes["dishkey"])) {
-                                                        favcontroller
-                                                            .removefromfav(
-                                                                dishes);
-                                                        message("Removed",
-                                                            "${dishes["dishname"]} Removed from Favorite");
-                                                      } else {
-                                                        favcontroller
-                                                            .addtofav(dishes);
-                                                        message("Added",
-                                                            "${dishes["dishname"]} Added in Favorite");
-                                                      }
-                                                      setState(() {});
-                                                    },
-                                                    icon: Icon(
-                                                      favcontroller.isfav(
-                                                              dishes["dishkey"])
-                                                          ? Icons.favorite
-                                                          : Icons
-                                                              .favorite_outline,
-                                                      color: favcontroller
-                                                              .isfav(dishes[
-                                                                  "dishkey"])
-                                                          ? Colors.red
-                                                          : Colors.black,
-                                                    )),
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      )),
-                                    ),
-                                  );
-                                }),
+                                                                );
+                                                              });
+                                                        },
+                                                        icon: Icon(
+                                                          Icons.shopping_cart,
+                                                          color: Colors.black,
+                                                        )),
+                                                    IconButton(
+                                                        onPressed: () {
+                                                          if (favcontroller.isfav(
+                                                              dishes["dishkey"])) {
+                                                            favcontroller
+                                                                .removefromfav(
+                                                                    dishes);
+                                                            message("Removed",
+                                                                "${dishes["dishname"]} Removed from Favorite");
+                                                          } else {
+                                                            favcontroller
+                                                                .addtofav(dishes);
+                                                            message("Added",
+                                                                "${dishes["dishname"]} Added in Favorite");
+                                                          }
+                                                          setState(() {});
+                                                        },
+                                                        icon: Icon(
+                                                          favcontroller.isfav(
+                                                                  dishes["dishkey"])
+                                                              ? Icons.favorite
+                                                              : Icons
+                                                                  .favorite_outline,
+                                                          color: favcontroller
+                                                                  .isfav(dishes[
+                                                                      "dishkey"])
+                                                              ? Colors.red
+                                                              : Colors.black,
+                                                        )),
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          )),
+                                        ),
+                                      );
+                                    }),
+                              ],
+                            ),
                   ],
                 ),
               ),

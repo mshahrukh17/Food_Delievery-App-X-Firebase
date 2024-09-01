@@ -1,4 +1,4 @@
-// ignore_for_file: await_only_futures, avoid_print, file_names
+// ignore_for_file: await_only_futures, avoid_print, file_names, unnecessary_overrides
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
@@ -8,6 +8,7 @@ class UserController extends GetxController {
   bool dishloading = false;
   var showlist = [];
   var dishlist = [];
+  var activecategory = [];
   setloading(value) {
     isloading = value;
     update();
@@ -50,16 +51,26 @@ class UserController extends GetxController {
     }
     showlist[index]["selected"] = true;
     update();
+    CollectionReference activecat = FirebaseFirestore.instance.collection("category");
+    await activecat.where("status", isEqualTo: true).get().then((QuerySnapshot snapshot) {
+      activecategory = snapshot.docs.map((doc) => doc.id).toList();
+    } );
+    update();
     if (showlist[index]["catkey"] == "") {
-      CollectionReference dishes =
+      if (activecategory.isNotEmpty) {
+         CollectionReference dishes =
           FirebaseFirestore.instance.collection("dishes");
-      await dishes.get().then((QuerySnapshot snapshot) {
+      await dishes.where("categorykey", whereIn: activecategory).get().then((QuerySnapshot snapshot) {
         final alldata = snapshot.docs.map((doc) => doc.data()).toList();
 
         dishlist = alldata;
         print(alldata);
         update();
       });
+      } else {
+       print("No category"); 
+      }
+     
     } else {
       CollectionReference dishes =
           FirebaseFirestore.instance.collection("dishes");

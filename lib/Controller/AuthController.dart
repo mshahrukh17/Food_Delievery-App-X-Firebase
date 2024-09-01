@@ -30,21 +30,28 @@ class AuthController extends GetxController {
   var image;
   var filepath;
 
+  // => Loader! show for datafetching time <= \\
+
   setloading(value) {
     isloading = value;
     update();
   }
+   
+   // => selectimage! selection for image from user/admin <= \\
 
   selectimage(source) async {
     final XFile? file = await _picker.pickImage(source: source);
     if (file != null) {
       print(file.path);
       image = File(file.path);
+      // => for filepath <= \\
       filepath = file.path;
+      // => for image name <= \\
       print(filepath.toString().split("/").last);
     }
     update();
   }
+  // => SharedPreferences to store data user/admin <= \\
 
   setpreference(data) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -54,6 +61,8 @@ class AuthController extends GetxController {
     prefs.setString("email", data["email"]);
     prefs.setString("image", data["image"]);
   }
+   
+   // => Signup method <= \\
 
   usersignup(name, email, password) async {
     try {
@@ -80,28 +89,34 @@ class AuthController extends GetxController {
         "type": "user"
       };
 
+      // => refrences for users <= \\
+
       CollectionReference users =
           await FirebaseFirestore.instance.collection("users");
       await users.doc(uid).set(userobj);
+      // => loader <= \\
       setloading(false);
       message("Success", "Account Created Succesfully");
+      // => clear the Fextfield After signup <= \\
       emailcontroll.clear();
       namecontroll.clear();
       passwordcontroll.clear();
+      // => To Route <= \\
       Get.to(LoginPage());
     } catch (e) {
       setloading(false);
       message("Error", e.toString());
     }
   }
-
+  // => Login method <= \\
   userlogin(email, password) async {
     try {
       setloading(true);
       final UserCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+     // => User id <= \\     
       var uid = UserCredential.user!.uid;
-
+    // => To check the which one is login admin/user <= \\
       FirebaseFirestore.instance
           .collection("users")
           .doc(uid)
@@ -113,6 +128,7 @@ class AuthController extends GetxController {
           setpreference(data);
           Get.offAll(Navbar());
         } else {
+        // => For admin <= \\  
           FirebaseFirestore.instance
               .collection("admin")
               .doc(uid)
@@ -130,8 +146,10 @@ class AuthController extends GetxController {
           });
         }
       });
+      // => to show loader while login <= \\
       setloading(false);
       message("Success", "User Login Successfully");
+      // => Clear the Textfield after login <=\\
       emailcontroll2.clear();
       passwordcontroll2.clear();
     } catch (e) {
