@@ -1,17 +1,7 @@
 // ignore_for_file: camel_case_types, prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, file_names, use_full_hex_values_for_flutter_colors, unused_local_variable
 
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:food_delievery_app/Admin/AdminDashboard.dart';
-import 'package:food_delievery_app/Admin/Categorylist.dart';
-import 'package:food_delievery_app/Admin/Dishes.dart';
-import 'package:food_delievery_app/Admin/UsersList.dart';
-import 'package:food_delievery_app/Constants/AppColor.dart';
-import 'package:food_delievery_app/View/Auth/Loginpage.dart';
-import 'package:food_delievery_app/Widgets/MyText.dart';
-import 'package:food_delievery_app/Widgets/Mybutton2.dart';
-import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+import '../Widgets/AllExport.dart';
 
 class drawerdata extends StatefulWidget {
   const drawerdata({super.key});

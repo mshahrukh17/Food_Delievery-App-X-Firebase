@@ -32,15 +32,18 @@ class _DishDetailState extends State<DishDetail> {
           builder: (controller) {
             return Column(
               children: [
-                CachedNetworkImage(
-                  imageUrl: widget.Dishdata["dishimage"],
-                  height: 200,
-                  width: MediaQuery.of(context).size.width,
-                  placeholder: (context, url) => CircularProgressIndicator(
-                    color: Color(0xfffE89E2A),
+                Hero(
+                  tag:  widget.Dishdata["dishimage"],
+                  child: CachedNetworkImage(
+                    imageUrl: widget.Dishdata["dishimage"],
+                    height: 200,
+                    width: MediaQuery.of(context).size.width,
+                    placeholder: (context, url) => CircularProgressIndicator(
+                      color: Color(0xfffE89E2A),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        Icon(Icons.error_outline_outlined),
                   ),
-                  errorWidget: (context, url, error) =>
-                      Icon(Icons.error_outline_outlined),
                 ),
                 SizedBox(
                   height: 10,

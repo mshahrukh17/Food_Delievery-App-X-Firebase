@@ -1,11 +1,7 @@
 // ignore_for_file: prefer_const_constructors, file_names, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, use_full_hex_values_for_flutter_colors, sized_box_for_whitespace, avoid_print
 
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:food_delievery_app/Constants/AppColor.dart';
 import 'package:food_delievery_app/View/User/UserController/CartController.dart';
-import 'package:food_delievery_app/Widgets/MyText.dart';
-import 'package:get/get.dart';
+import 'package:food_delievery_app/Widgets/AllExport.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -16,7 +12,6 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   final cartcontroller = Get.put(CartController());
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CartController>(
@@ -42,8 +37,6 @@ class _CartPageState extends State<CartPage> {
                     height: MediaQuery.of(context).size.height * 0.66,
                     child: ListView.builder(
                       shrinkWrap: true,
-                      // physics: NeverScrollableScrollPhysics(),
-                      // scrollDirection: Axis.vertical,
                       itemCount: cartcontroller.cartList.length,
                       itemBuilder: (context, index) {
                         final item = cartcontroller.cartList[index];
@@ -100,10 +93,9 @@ class _CartPageState extends State<CartPage> {
                                                 color: Colors.white)),
                                       ),
                                       SizedBox(
-                                        width: 5,
+                                        width: 15,
                                       ),
-                                      SizedBox(
-                                        width: 22,
+                                      FittedBox(
                                         child: Text(
                                           item["quantity"].toString(),
                                           maxLines: 1,
@@ -112,7 +104,7 @@ class _CartPageState extends State<CartPage> {
                                         ),
                                       ),
                                       SizedBox(
-                                        width: 5,
+                                        width: 15,
                                       ),
                                       GestureDetector(
                                         onTap: () {
@@ -140,7 +132,7 @@ class _CartPageState extends State<CartPage> {
                   ),
                 ),
           bottomSheet: cartcontroller.cartList.isEmpty
-              ? SizedBox()
+              ? null
               : Container(
                   height: 80,
                   decoration: BoxDecoration(
@@ -151,16 +143,21 @@ class _CartPageState extends State<CartPage> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          "Total Price :",
-                          style: ThemeText.profile(20.0),
+                          "Total Price : ",
+                          style: ThemeText.profile2(18.0),
                         ),
                         Text(
                           "\$${cartcontroller.getTotalPrice().toString()}",
-                          style: ThemeText.profile(20.0),
+                          style: ThemeText.profile(16.0),
                         ),
+                        Spacer(),
+                        MyButton2(onpress: () {
+                          cartcontroller.placeorder(context, cartcontroller.getTotalPrice().toString());
+                          }, 
+                          buttontext: "Place Order")
                       ],
                     ),
                   ),

@@ -1,14 +1,7 @@
 // ignore_for_file: prefer_const_constructors, file_names, use_full_hex_values_for_flutter_colors
 
-import 'package:flutter/material.dart';
-import 'package:food_delievery_app/Constants/AppColor.dart';
-import 'package:food_delievery_app/Controller/AuthController.dart';
-import 'package:food_delievery_app/View/Auth/SignupPage.dart';
-import 'package:food_delievery_app/Widgets/Message.dart';
-import 'package:food_delievery_app/Widgets/MyButton.dart';
-import 'package:food_delievery_app/Widgets/MyText.dart';
-import 'package:food_delievery_app/Widgets/MyTextField.dart';
-import 'package:get/get.dart';
+
+import '../../Widgets/AllExport.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

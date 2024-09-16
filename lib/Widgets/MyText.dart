@@ -1,6 +1,7 @@
 // ignore_for_file: file_names, prefer_const_constructors, use_full_hex_values_for_flutter_colors
 
-import 'package:flutter/material.dart';
+
+import 'AllExport.dart';
 
 class ThemeText {
   static TextStyle title(fontsize) {

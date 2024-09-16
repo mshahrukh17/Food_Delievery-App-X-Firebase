@@ -1,15 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:food_delievery_app/View/Splashscreen.dart';
-import 'package:food_delievery_app/firebase_options.dart';
-import 'package:get/get.dart';
+
+import 'package:flutter_stripe/flutter_stripe.dart';
+
+import 'Widgets/AllExport.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  Stripe.publishableKey = "pk_test_TYooMQauvdEDq54NiTphI7jx";
   runApp(const MyApp());
 }
 

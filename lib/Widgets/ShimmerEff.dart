@@ -1,8 +1,7 @@
 // ignore_for_file: prefer_const_constructors, file_names, prefer_const_literals_to_create_immutables, use_full_hex_values_for_flutter_colors, non_constant_identifier_names
 
-import 'package:flutter/material.dart';
-import 'package:food_delievery_app/Constants/AppColor.dart';
-import 'package:shimmer/shimmer.dart';
+
+import 'AllExport.dart';
 
 class ShimmerLoading{
   static Shimmer Shimmer1(){

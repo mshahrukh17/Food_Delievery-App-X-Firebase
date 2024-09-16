@@ -1,14 +1,7 @@
 // ignore_for_file: prefer_const_constructors, file_names, prefer_const_literals_to_create_immutables, use_full_hex_values_for_flutter_colors, avoid_print, prefer_typing_uninitialized_variables
 
-import 'package:flutter/material.dart';
-import 'package:food_delievery_app/Admin/Drawerdata.dart';
-import 'package:food_delievery_app/Constants/AppColor.dart';
-import 'package:food_delievery_app/Controller/AdminController/AdminCategoryController.dart';
-import 'package:food_delievery_app/Widgets/MyText.dart';
-import 'package:food_delievery_app/Widgets/MyTextField.dart';
-import 'package:food_delievery_app/Widgets/Mybutton.dart';
-import 'package:food_delievery_app/Widgets/Mybutton2.dart';
-import 'package:get/get.dart';
+
+import '../Widgets/AllExport.dart';
 
 class CategoryList extends StatefulWidget {
   const CategoryList({super.key});

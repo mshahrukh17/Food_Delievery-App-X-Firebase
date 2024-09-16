@@ -2,17 +2,9 @@
 
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-import 'package:food_delievery_app/Admin/AdminDashboard.dart';
-import 'package:food_delievery_app/View/Auth/Loginpage.dart';
-import 'package:food_delievery_app/Widgets/BottomNavBar.dart';
-import 'package:food_delievery_app/Widgets/Message.dart';
-import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import '../Widgets/AllExport.dart';
+
+
 
 class AuthController extends GetxController {
   var isloading = false;

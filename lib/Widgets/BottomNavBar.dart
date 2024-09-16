@@ -1,11 +1,6 @@
 // ignore_for_file: prefer_const_constructors, file_names, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, use_full_hex_values_for_flutter_colors
 
-import 'package:flutter/material.dart';
-import 'package:food_delievery_app/View/User/CartPage.dart';
-import 'package:food_delievery_app/View/User/Favourite.dart';
-import 'package:food_delievery_app/View/User/Home.dart';
-import 'package:food_delievery_app/View/User/UserInfo.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
+import 'AllExport.dart';
 
 class Navbar extends StatefulWidget {
   const Navbar({super.key});

@@ -1,7 +1,5 @@
 // ignore_for_file: await_only_futures, avoid_print, file_names, unnecessary_overrides
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get/get.dart';
+import '../../../Widgets/AllExport.dart';
 
 class UserController extends GetxController {
   bool isloading = false;
@@ -19,31 +17,40 @@ class UserController extends GetxController {
     update();
   }
 
-  getallcategory() async {
+   Future<void> getallcategory() async {
     setloading(true);
-    CollectionReference getcategory =
-        FirebaseFirestore.instance.collection("category");
-    await getcategory
-        .where("status", isEqualTo: true)
-        .get()
-        .then((QuerySnapshot snapshot) {
+    try {
+      CollectionReference getcategory =
+          FirebaseFirestore.instance.collection("category");
+      QuerySnapshot snapshot =
+          await getcategory.where("status", isEqualTo: true).get();
+      
       final data = snapshot.docs.map((doc) => doc.data()).toList();
       var alldishes = [];
-      for (var i = 0; i <data.length ; i++) {
+      for (var i = 0; i < data.length; i++) {
         var suppose = data[i] as Map;
         suppose["selected"] = false;
         alldishes.add(suppose);
       }
-      var alloption = {"catkey": "", "catname": "All", "status": true, "selected" : true};
+
+      var alloption = {
+        "catkey": "",
+        "catname": "All",
+        "status": true,
+        "selected": true
+      };
       alldishes.insert(0, alloption);
       showlist = alldishes;
       getdishes(0);
       print(alldishes);
-    });
-     setloading(false);
-    update();
+    } catch (e) {
+      print("Error fetching categories: $e");
+    } finally {
+      setloading(false);
+      update();
+    }
   }
-
+  
   getdishes(index) async {
     setdishloading(true);
     for (var i = 0; i < showlist.length; i++) {
@@ -54,6 +61,7 @@ class UserController extends GetxController {
     CollectionReference activecat = FirebaseFirestore.instance.collection("category");
     await activecat.where("status", isEqualTo: true).get().then((QuerySnapshot snapshot) {
       activecategory = snapshot.docs.map((doc) => doc.id).toList();
+      print(activecategory);
     } );
     update();
     if (showlist[index]["catkey"] == "") {

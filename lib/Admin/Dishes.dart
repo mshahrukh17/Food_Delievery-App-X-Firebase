@@ -1,15 +1,7 @@
 // ignore_for_file: prefer_const_constructors, file_names, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace, use_full_hex_values_for_flutter_colors, avoid_print
 
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:food_delievery_app/Admin/Drawerdata.dart';
-import 'package:food_delievery_app/Constants/AppColor.dart';
-import 'package:food_delievery_app/Controller/AdminController/AdminDishController.dart';
-import 'package:food_delievery_app/Widgets/MyText.dart';
-import 'package:food_delievery_app/Widgets/MyTextField.dart';
-import 'package:food_delievery_app/Widgets/Mybutton.dart';
-import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
+
+import '../Widgets/AllExport.dart';
 
 class Dishes extends StatefulWidget {
   const Dishes({super.key});
