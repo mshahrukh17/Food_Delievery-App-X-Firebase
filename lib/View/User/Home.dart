@@ -97,7 +97,8 @@ class _HomePageState extends State<HomePage> {
                             child: CircularProgressIndicator(
                             color: Color(0xfffE89E2A),
                           ))
-                        : Container(
+                        : controller.showlist.isEmpty ? Center(child: Text("No Category")):
+                        Container(
                             height: 55,
                             color: Colors.transparent,
                             child: ListView.builder(

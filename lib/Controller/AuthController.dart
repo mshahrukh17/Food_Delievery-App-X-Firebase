@@ -52,6 +52,7 @@ class AuthController extends GetxController {
     prefs.setString("name", data["name"]);
     prefs.setString("email", data["email"]);
     prefs.setString("image", data["image"]);
+    prefs.setString("userID", data["userID"]);
   }
    
    // => Signup method <= \\
@@ -78,7 +79,8 @@ class AuthController extends GetxController {
         "email": email,
         "password": password,
         "image": downloadurl,
-        "type": "user"
+        "type": "user",
+        "userID" : uid,
       };
 
       // => refrences for users <= \\

@@ -1,13 +1,6 @@
 // ignore_for_file: prefer_const_constructors, file_names, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations, unnecessary_brace_in_string_interps, use_full_hex_values_for_flutter_colors
-
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
-import 'package:food_delievery_app/Constants/AppColor.dart';
-import 'package:food_delievery_app/View/Auth/Loginpage.dart';
-import 'package:food_delievery_app/Widgets/MyText.dart';
-import 'package:food_delievery_app/Widgets/Mybutton2.dart';
-import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:food_delievery_app/View/User/UserTabbar.dart';
+import 'package:food_delievery_app/Widgets/AllExport.dart';
 
 class UserInfoPage extends StatefulWidget {
   const UserInfoPage({super.key});
@@ -98,7 +91,11 @@ class _UserInfoPageState extends State<UserInfoPage> {
           SizedBox(
             height: 40.0,
           ),
-          options(context, "Orders".toString(), Icons.arrow_forward_ios),
+          InkWell(
+            onTap: () {
+              Get.to(()=> UserTabbar());
+            },
+            child: options(context, "Orders".toString(), Icons.arrow_forward_ios)),
           SizedBox(
             height: 20.0,
           ),
