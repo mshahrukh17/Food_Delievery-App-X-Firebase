@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors, file_names, prefer_const_literals_to_create_immutables, unnecessary_string_interpolations, unnecessary_brace_in_string_interps, use_full_hex_values_for_flutter_colors
-import 'package:food_delievery_app/View/User/UserTabbar.dart';
 import 'package:food_delievery_app/Widgets/AllExport.dart';
 
 class UserInfoPage extends StatefulWidget {
@@ -93,7 +92,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
           ),
           InkWell(
             onTap: () {
-              Get.to(()=> UserTabbar());
+              // Get.to(()=> UserTabbar());
             },
             child: options(context, "Orders".toString(), Icons.arrow_forward_ios)),
           SizedBox(

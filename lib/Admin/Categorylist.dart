@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, file_names, prefer_const_literals_to_create_immutables, use_full_hex_values_for_flutter_colors, avoid_print, prefer_typing_uninitialized_variables
+// ignore_for_file: prefer_const_constructors, file_names, prefer_const_literals_to_create_immutables, use_full_hex_values_for_flutter_colors, avoid_, prefer_typing_uninitialized_variables
 
 
 import '../Widgets/AllExport.dart';
@@ -112,7 +112,7 @@ class _CategoryListState extends State<CategoryList> {
                           ],
                           rows:
                               List.generate(controller.catlist.length, (index) {
-                            print(categorycontroller.catlist[index]);
+                            (categorycontroller.catlist[index]);
                             var catlist = controller.catlist[index];
                             return DataRow(cells: [
                               DataCell(Text((index + 1).toString())),

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, file_names, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, use_full_hex_values_for_flutter_colors, sized_box_for_whitespace, avoid_print
 
+import 'package:food_delievery_app/Controller/OrderController.dart';
 import 'package:food_delievery_app/View/User/UserController/CartController.dart';
 import 'package:food_delievery_app/Widgets/AllExport.dart';
 
@@ -12,6 +13,14 @@ class CartPage extends StatefulWidget {
 
 class _CartPageState extends State<CartPage> {
   final cartcontroller = Get.put(CartController());
+  final ordercontroller = Get.put(OrderController());
+  var uid = "";
+  setuid() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    uid = prefs.getString("userID")!;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CartController>(
@@ -154,10 +163,13 @@ class _CartPageState extends State<CartPage> {
                           style: ThemeText.profile(16.0),
                         ),
                         Spacer(),
-                        MyButton2(onpress: () {
-                          cartcontroller.placeorder(context, cartcontroller.getTotalPrice().toString());
-                          }, 
-                          buttontext: "Place Order")
+                        MyButton2(
+                            onpress: () {
+                              // uid;
+                              ordercontroller.placeorder(context,
+                                  cartcontroller.getTotalPrice().toString(), uid);
+                            },
+                            buttontext: "Place Order")
                       ],
                     ),
                   ),

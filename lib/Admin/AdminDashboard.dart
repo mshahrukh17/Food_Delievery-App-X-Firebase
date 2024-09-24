@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, file_names, prefer_const_literals_to_create_immutables, use_full_hex_values_for_flutter_colors, non_constant_identifier_names
 
-import 'package:food_delievery_app/Admin/AdminTabbar.dart';
+
+import 'package:food_delievery_app/Admin/ViewOrders.dart';
 
 import '../Widgets/AllExport.dart';
 
@@ -52,7 +53,9 @@ class _AdminDashBoardState extends State<AdminDashBoard> {
               children: [
                 ContainerWidget(context, controller.dishescount.toString(), "Dishes", Color(0xfff81591E),),
                  GestureDetector(
-                  onTap: () => Get.to(()=> AdminTabbar()),
+                  onTap: () {
+                  Get.to(()=> ViewOrders());
+                  },
                   child: ContainerWidget(context, controller.orderscount.toString(), "Orders", Colors.grey))
               ],
             ),
