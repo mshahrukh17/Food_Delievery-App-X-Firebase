@@ -6,6 +6,8 @@ class ViewOrderController extends GetxController {
   RxBool isloading = false.obs;
   var orders = <Map<String, dynamic>>[].obs;
   var userorders = <Map<String, dynamic>>[].obs;
+  var id;
+  
 
   setloading(value) {
     isloading.value = value;
@@ -17,7 +19,6 @@ class ViewOrderController extends GetxController {
     fetchOrders();
   }
 
-  // fetch all orders to admin
   fetchOrders() {
     FirebaseFirestore.instance
         .collection("orders")
@@ -28,7 +29,6 @@ class ViewOrderController extends GetxController {
     });
   }
 
-  // fetch userorder for specific user
   fetchUserOrder(String uid) {
     FirebaseFirestore.instance
         .collection("orders")
@@ -39,7 +39,7 @@ class ViewOrderController extends GetxController {
     });
   }
 
-  // Update order status
+
   updateOrderStatus(
     String orderId,
     String newstatus,

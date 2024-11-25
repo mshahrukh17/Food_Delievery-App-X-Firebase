@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, file_names, prefer_const_literals_to_create_immutables, use_full_hex_values_for_flutter_colors, non_constant_identifier_names
 
 
+import 'package:food_delievery_app/Admin/AdminChatPage.dart';
 import 'package:food_delievery_app/Admin/ViewOrders.dart';
 
 import '../Widgets/AllExport.dart';
@@ -63,7 +64,11 @@ class _AdminDashBoardState extends State<AdminDashBoard> {
              Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ContainerWidget(context, controller.pendingOrder.toString(), "Pending Orders", Colors.indigo),
+                GestureDetector(
+                  onTap: () {
+                    Get.to(() => AdminChatPage());
+                  },
+                  child: ContainerWidget(context, controller.pendingOrder.toString(), "Messages", Colors.indigo)),
                  ContainerWidget(context, controller.cancelOrder.toString(), "Cancel Orders", Colors.yellow.shade700)
               ],
             )

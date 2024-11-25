@@ -92,8 +92,10 @@ class _ViewOrdersState extends State<ViewOrders> {
                           ),
                         );
                       },),
+                       Text('Order Time : ${order['timestamp'].toDate().toString()}'),
+                       Text('User Email : '+order['email']),
                        Text('Order status : '+order['orderstatus']),
-                      Text(order['orderkey']),
+                      Text('OrderKey : '+order['orderkey']),
                       Text('TotalPrice : '+order['totalprice'].toString()),
                      if(ispending)
                       Row(

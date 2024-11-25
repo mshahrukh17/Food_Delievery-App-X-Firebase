@@ -79,6 +79,7 @@ class OrderController extends GetxController{
                             if (formkey.currentState!.validate()) {
                               print("success");
                               makePayment(totalprice, uid);
+
                               Navigator.pop(context);
                             } else {
                               message("Error", "Details required");
@@ -126,6 +127,7 @@ class OrderController extends GetxController{
       await Stripe.instance.presentPaymentSheet().then((value) async {
         print(paymentIntent!["id"].toString());
         PayOrder(amount, uid);
+        cartcontroller.cartList.clear();
 
         paymentIntent = null;
       }).onError((error, stackTrace) {
@@ -184,6 +186,8 @@ class OrderController extends GetxController{
   }
 
   PayOrder(amount,uid) async {
+    cartcontroller.cartList.clear();
+    update();
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     var email = prefs.getString("email");
      uid = prefs.getString("userID");

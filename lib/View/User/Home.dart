@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Padding(
                       padding:
-                          const EdgeInsets.only(top: 22, left: 2, right: 2),
+                          const EdgeInsets.only(top: 30, left: 2, right: 2),
                       child: Row(
                         children: [
                           Text(
@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                         : controller.showlist.isEmpty ? Center(child: Text("No Category")):
                         Container(
                             height: 55,
-                            color: Colors.transparent,
+                            // color: Colors.red,
                             child: ListView.builder(
                                 physics: BouncingScrollPhysics(),
                                 shrinkWrap: true,
@@ -116,9 +116,11 @@ class _HomePageState extends State<HomePage> {
                                       },
                                       child: Material(
                                         elevation: 5,
+                                        // color: Colors.blue,
                                         borderRadius: BorderRadius.circular(12),
                                         child: Container(
                                           width: 110,
+                                          height: 50,
                                           decoration: BoxDecoration(
                                               border: Border.all(
                                                   color: showcat["selected"] ==
@@ -160,7 +162,8 @@ class _HomePageState extends State<HomePage> {
                                 padding: const EdgeInsets.only(top: 160),
                                 child: Text("No Dishes in this Category"),
                               ))
-                            : Column(
+                            : 
+                            Column(
                                 children: [
                                   GridView.builder(
                                       shrinkWrap: true,
@@ -168,7 +171,9 @@ class _HomePageState extends State<HomePage> {
                                       itemCount: controller.dishlist.length,
                                       gridDelegate:
                                           SliverGridDelegateWithFixedCrossAxisCount(
-                                              childAspectRatio: 0.8,
+                                              childAspectRatio: 0.75,
+                                              mainAxisSpacing: 10,
+                                              crossAxisSpacing: 10,
                                               crossAxisCount: 2),
                                       itemBuilder: (context, index) {
                                         var dishes = controller.dishlist[index];
